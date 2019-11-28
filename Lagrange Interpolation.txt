@@ -1,0 +1,21 @@
+clc;
+clear all;
+
+x = [0 0.25 0.5 0.75];
+y = [1 1.64872 2.71828 4.48169];
+p = 0.43;
+n = 4;
+
+sum=0;
+for i = 1:n
+    product = 1;
+    for j = 1:n
+        if i ~= j
+           z = (p-x(j))/(x(i)-x(j));
+           product = z*product;
+        end
+    end
+    sum = sum + product*y(i);
+end
+
+disp(sum)

@@ -1,0 +1,38 @@
+clc;
+clear all;
+
+A = [4 1 -1 1;
+     1 4 -1 -1;
+     -1 -1 5 1;
+     1 -1 1 3;];
+ 
+B = [-2 -1 0 1];
+X0 = [0;0;0;0;];
+X1 = [0;0;0;0;];
+m=4;
+N = 500;
+tol = 0.001;
+w=1.2;
+
+k=0;
+while (k<N)
+    for i=1:m
+      sum = 0;
+      for j=1:i-1
+        sum = sum + A(i,j)*X1(j);    
+      end
+      for j=i+1:m
+        sum = sum + A(i,j)*X0(j);    
+      end
+      X1(i) = (1-w)*X0(i) + (B(i) - sum)*w/A(i,i);
+    end
+    
+    if norm(X1-X0,"inf")<tol
+        disp(X1)
+        break
+    else
+        X0=X1;
+    end
+    
+    k=k+1;
+end

@@ -1,0 +1,36 @@
+clc;
+clear all;
+
+A = [4.63 -1.21 3.22;
+     -3.07 5.48 2.11;
+     1.26 3.11 4.57;];
+ 
+B = [2.22; -3.17; 5.11;];
+X0 = [0;0;0;];
+X1 = [0;0;0;];
+m=3;
+N = 500;
+tol = 0.001;
+
+k=0;
+while (k<N)
+    for i=1:m
+      sum = 0;
+      for j=1:i-1
+        sum = sum + A(i,j)*X1(j);    
+      end
+      for j=i+1:m
+        sum = sum + A(i,j)*X0(j);    
+      end
+      X1(i) = (B(i) - sum)/A(i,i);
+    end
+    
+    if norm(X1-X0,"inf")<tol
+        disp(X1)
+        break
+    else
+        X0=X1;
+    end
+    
+    k=k+1;
+end

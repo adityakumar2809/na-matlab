@@ -1,0 +1,26 @@
+clc;
+clear all;
+
+A = [10 8 -3 1 16;
+     2 10 1 -4 9;
+     3 -4 10 1 10;
+     2 2 -3 10 11;];
+ 
+ [m,n] = size(A);
+ 
+ for i = 1:m-1
+     for j = i+1:m
+         A(j,:) = A(j,:) - (A(j,i)/A(i,i))*A(i,:);
+     end
+ end
+ 
+ B = zeros(m,1);
+ for i = m:-1:1
+     sum=0;
+     for j = m:-1:i+1
+         sum = sum + A(i,j)*B(j,1);
+     end
+     b(i,1) = (A(i,n) - sum)/A(i,i);
+ end
+ 
+ disp(b)
